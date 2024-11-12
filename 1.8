@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Leap year finder</title>
+</head>
+<body>
+    <script>
+function findLeapYears() {
+            var startYear = parseInt(prompt("Enter the start year:"));
+            var endYear = parseInt(prompt("Enter the end year:"));
+
+            var leapYears = [];
+
+            for (var year = startYear; year <= endYear; year++) {
+                if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
+                    leapYears.push(year);
+                }
+            }
+
+            var resultList = document.getElementById("result");
+            if (leapYears.length > 0) {
+                var ul = document.createElement("ul");
+                leapYears.forEach(function(year) {
+                    var li = document.createElement("li");
+                    li.textContent = year;
+                    ul.appendChild(li);
+                });
+                resultList.appendChild(ul);
+            } else {
+                resultList.innerHTML = "No leap years found in this range.";
+            }
+        }
+    </script>
+<body onload="findLeapYears()">
+    <h1>Leap Year Finder</h1>
+    <div id="result"></div>
+</body>
+</html>
