@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Leapyear checker</title>
+</head>
+<body>
+
+    <p id="tulos"></p>
+    <script>
+         function calculateSquareRoot() {
+            var userResponse = confirm("Should I calculate the square root?");
+
+            if (userResponse) {
+                var number = parseFloat(prompt("Enter a number:"));
+              
+                if (number < 0) {
+                    document.getElementById("result").innerText = "The square root of a negative number is not defined.";
+                } else {
+                    var squareRoot = Math.sqrt(number);
+                    document.getElementById("result").innerText = "The square root of " + number + " is " + squareRoot + ".";
+                }
+            } else {
+                document.getElementById("result").innerText = "The square root is not calculated.";
+            }
+        }
+    </script>
+<h1>Square Root Calculator</h1>
+    <button onclick="calculateSquareRoot()">Calculate Square Root</button>
+    <p id="result"></p>
+</body>
+</html>
