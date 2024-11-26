@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Testing JavaScript</title>
+</head>
+<body>
+    <h1>Participant list:</h1>
+    <button onclick="collectparticipants()">Add participants</button>
+    <div id="participantlist"></div>
+    <script src="exampe.js"></script>
+</body>
+</html>
+
+//java
+function collectNames() {
+    const count = parseInt(prompt("Number of participants:"));
+    const names = [];
+    for (let i = 0; i < count; i++) {
+        names.push(prompt(`Enter name for participant ${i + 1}:`));
+    }
+    names.sort();
+    console.log("Participants in alphabetical order:");
+    names.forEach(name => console.log(name));
+}
+
+collectNames();
