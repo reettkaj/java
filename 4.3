@@ -1,0 +1,72 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TV Series Search</title>
+  <script src="1.js" defer></script>
+</head>
+<body>
+  <h1>Search for a TV Series</h1>
+  <form id="searchForm">
+    <label for="query">Enter TV series name:</label>
+    <input id="query" name="q" type="text" placeholder="e.g., Friends">
+    <button type="submit">Search</button>
+  </form>
+
+  <div id="results"></div>
+
+</body>
+</html>
+
+//java
+'use strict';
+
+document.getElementById('searchForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const query = document.getElementById('query').value;
+  const apiURL = `https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`;
+
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = '';
+
+  try {
+    const response = await fetch(apiURL);
+    if (!response.ok) throw new Error('Failed to fetch data');
+
+    const data = await response.json(); // Parse JSON response
+
+    data.forEach((item) => {
+      const tvShow = item.show;
+
+      const article = document.createElement('article');
+
+      const title = document.createElement('h2');
+      title.textContent = tvShow.name;
+      article.appendChild(title);
+
+      const link = document.createElement('a');
+      link.href = tvShow.url;
+      link.textContent = 'More Info';
+      link.target = "_blank";
+      article.appendChild(link);
+
+      const image = document.createElement('img');
+      image.src = tvShow.image?.medium || 'https://via.placeholder.com/210x295?text=No+Image'; // Placeholder if no image
+      image.alt = tvShow.name;
+      article.appendChild(image);
+
+      const summary = document.createElement('div');
+      summary.innerHTML = tvShow.summary || 'No summary available'; // If no summary, show default text
+      article.appendChild(summary);
+
+      resultsDiv.appendChild(article);
+    });
+
+  } catch (error) {
+    console.error('Error:', error.message);
+    resultsDiv.textContent = `Error: ${error.message}`;
+  }
+});
