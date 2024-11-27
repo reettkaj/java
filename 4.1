@@ -1,0 +1,43 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TV Series Search</title>
+  <script src="1.js" defer></script>
+</head>
+<body>
+  <h1>Search for a TV Series</h1>
+  <form id="searchForm">
+    <label for="query">Enter TV series name:</label>
+    <input id="query" name="q" type="text" placeholder="e.g., Friends">
+    <button type="submit">Search</button>
+  </form>
+  <pre id="output"></pre>
+</body>
+</html>
+
+//java
+'use strict';
+
+document.getElementById('searchForm').addEventListener('submit', async function (e) {
+  e.preventDefault(); // Prevent form submission (default behavior)
+
+  const query = document.getElementById('query').value; // Get the user's input
+  const apiURL = `https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`;
+
+  try {
+    const response = await fetch(apiURL); // Fetch data from TVMaze API
+    if (!response.ok) throw new Error('Failed to fetch data');
+
+    const data = await response.json(); // Parse JSON response
+    console.log(data); // Log data to console
+
+    // Optionally, display the raw JSON data on the webpage for debugging
+    document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+  } catch (error) {
+    console.error('Error:', error.message);
+    document.getElementById('output').textContent = `Error: ${error.message}`;
+  }
+});
