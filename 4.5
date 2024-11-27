@@ -1,0 +1,33 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuck Norris Joke</title>
+  <script src="1.js" defer></script>
+</head>
+<body>
+  <h1>Chuck Norris Joke</h1>
+  <p>Open your browser's console to see the joke!</p>
+</body>
+</html>
+
+//java
+'use strict';
+
+// Fetching a random joke from the chucknorris.io API
+fetch('https://api.chucknorris.io/jokes/random')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Print the joke to the console
+    console.log(data.value); // 'value' contains the joke
+  })
+  .catch(error => {
+    console.error('There was an error fetching the joke:', error);
+  });
